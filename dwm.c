@@ -1452,7 +1452,7 @@ runautostart(void)
 	}
 
 	if (access(path, X_OK) == 0)
-		system(path);
+		system(path); 
 
 	/* now the non-blocking script */
 	if (sprintf(path, "%s/%s", pathpfx, autostartsh) <= 0) {
