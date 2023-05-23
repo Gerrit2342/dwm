@@ -63,6 +63,8 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+static const char *poweroff[] = { "poweroff", NULL};
+
 /* Audiokeys für Kontrolle */
 static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",   NULL };
 static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",   NULL };
@@ -110,6 +112,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+	{ MODKEY|ShiftMask, XK_Escape,     spawn, {.v = poweroff } },
 
 	{ 0, XF86XK_AudioMute,        spawn, {.v = mute_vol } },
         { 0, XF86XK_AudioLowerVolume, spawn, {.v = down_vol } },
