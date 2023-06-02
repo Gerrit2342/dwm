@@ -73,8 +73,8 @@ static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", 
 static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
 /* Helligkeitssteuerung mit brightnessctl */
-static const char *brighter[] = { "brightnessctl", "set", "10%+", NULL };
-static const char *dimmer[]   = { "brightnessctl", "set", "10%-", NULL };
+static const char *brighter[] = { "brightnessctl", "set", "5%+", NULL };
+static const char *dimmer[]   = { "brightnessctl", "set", "5%-", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
