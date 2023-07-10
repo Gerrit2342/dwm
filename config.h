@@ -77,8 +77,8 @@ static const char *rfkill[] = { "doas", "/usr/sbin/rfkill","toggle", "all", NULL
 static const char *halt[] = { "doas", "/sbin/halt", NULL};
 
 /* Audiokeys für Kontrolle */
-static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",   NULL };
-static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",   NULL };
+static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
+static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
 static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
 /* Helligkeitssteuerung mit brightnessctl */
