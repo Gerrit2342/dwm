@@ -63,10 +63,17 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+
+/* Screenshot mit flameshot machen */
 static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
 
+/* clipmenu aufrufen */
+static const char *clipmenucmd[]  = { "clipmenu", NULL };
+
+/* Ausschalten von WLAN und Bluetooth */
 static const char *rfkill[] = { "doas", "/usr/sbin/rfkill","toggle", "all", NULL};
 
+/* Sofortiges herunterfahren */
 static const char *halt[] = { "doas", "/sbin/halt", NULL};
 
 /* Audiokeys für Kontrolle */
@@ -83,6 +90,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{NULL	,			XK_Print,  spawn,	   {.v = flameshotcmd } },
+	{MODKEY,			XK_v,	   spawn,	   {.v = clipmenucmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -92,7 +100,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,	                XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,	                XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
