@@ -10,11 +10,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Inconsolata:size=12", "fontawesome:size=12" };
 static const char dmenufont[]       = "Inconsolata:size=12";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#222222"; // Bar background
 static const char col_gray2[]       = "#005577";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#f78300";
+static const char col_gray4[]       = "#eeeeee"; // Icon color (active)
+static const char col_cyan[]        = "#3A86FF"; // Border and Window name 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -45,7 +45,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
 
