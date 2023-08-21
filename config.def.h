@@ -15,7 +15,7 @@ static const char col_gray2[]       = "#005577";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee"; // Icon color (active)
 static const char col_cyan[]        = "#3A86FF"; // Border and Window name 
-static const unsigned int baralpha = 0x80;
+static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -25,8 +25,8 @@ static const char *colors[][3]      = {
 
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
-   	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-    	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+    [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
