@@ -1,4 +1,6 @@
 /* See LICENSE file for copyright and license details. */
+/* For using the mediakeys */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -27,7 +29,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "", "", ""};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -35,8 +37,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Firefox",    NULL,     NULL,       1,              0,           -1 },
+	{ "KeePassXC",  NULL,     NULL,       1 << 8,         0,           -1 },
 };
 
 /* layout(s) */
@@ -69,18 +71,28 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
+/* Screenshot with flameshot */
+static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
+/* Functions for mediakeys */
+static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
+static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
+static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
+
+/* Brightnesscontrol with brightnessctl */
+static const char *brighter[] = { "brightnessctl", "s", "+5%", NULL };
+static const char *dimmer[] = { "brightnessctl", "s", "5%-", NULL };
 
 /* Xresources preferences to load at startup */
 ResourcePref resources[] = {
 	{ "gappx",          	INTEGER, &gappx },
 	{ "font",               STRING,  &font },
 	{ "dmenufont",          STRING,  &dmenufont },
-	{ "normbgcolor",        STRING,  &normbgcolor },
-	{ "normbordercolor",    STRING,  &normbordercolor },
-	{ "normfgcolor",        STRING,  &normfgcolor },
-	{ "selbgcolor",         STRING,  &selbgcolor },
-	{ "selbordercolor",     STRING,  &selbordercolor },
-	{ "selfgcolor",         STRING,  &selfgcolor },
+	{ "color0",             STRING,  &normbgcolor },
+	{ "color0",             STRING,  &normbordercolor },
+	{ "color4",             STRING,  &normfgcolor },
+	{ "color4",             STRING,  &selbgcolor },
+	{ "color8",             STRING,  &selbordercolor },
+	{ "color0",             STRING,  &selfgcolor },
 	{ "borderpx",          	INTEGER, &borderpx },
 	{ "snap",          	INTEGER, &snap },
 	{ "showbar",          	INTEGER, &showbar },
@@ -94,6 +106,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ 0	,			XK_Print,  spawn,	   {.v = flameshotcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -128,6 +141,26 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_Escape, spawn,          SHCMD("st slock") },
+
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("$HOME/.local/bin/sysact") },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("$HOME/.local/bin/displayselect") },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("$HOME/.local/bin/bookmark_selection") },
+
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          SHCMD("$BROWSER") },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("st $FILEMANAGER") },
+
+	{ 0, XF86XK_AudioMute,        spawn, {.v = mute_vol } },
+        { 0, XF86XK_AudioLowerVolume, spawn, {.v = down_vol } },
+       	{ 0, XF86XK_AudioRaiseVolume, spawn, {.v = up_vol } },
+
+	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = dimmer } },
+       	{ 0, XF86XK_MonBrightnessUp,   spawn, {.v = brighter } },
+
+	{ MODKEY|ShiftMask,             XK_Up,     spawn,         {.v = up_vol }  },
+	{ MODKEY|ShiftMask,             XK_Down,   spawn,         {.v = down_vol }  },
+	{ MODKEY|ShiftMask,             XK_End,    spawn,         {.v = mute_vol }  },
 };
 
 /* button definitions */
