@@ -9,8 +9,12 @@ In order to build dwm you need the Xlib header files.
 
 ## Patches
 --------------------
-+ **Xresources**
-+ **Full Gaps**
++ **xresources**
++ **full Gaps**
++ **statuscmd**
++ **pertag**
++ **hide-vacant-tags**
++ **systray**
 
 ## Installation
 --------------------
